@@ -1,0 +1,108 @@
+@import 'assets/imports.styl'
+
+@import 'css-assets/general'
+@import 'css-assets/elements'
+@import 'css-assets/blocks'
+@import 'css-assets/layouts'
+@import 'css-assets/effects'
+@import 'css-assets/icons'
+
+body
+  background white
+
+/* 3d1b1302ecf8441b0d6403758eaf80ee */
+.post
+  text-align center
+  position relative
+  padding-top 1px
+  max-width 75*gs
+  color #44596e
+  min-width 43*gs
+  display inline-block
+  &--title
+    position absolute
+    fill #e2e2e2
+    right 0
+    top 0
+    rect 36px
+    z-index 0
+  .entry-title
+    font-size 36px
+    line-height 4*gs
+    text-transform uppercase
+    font-weight 600
+    margin-top    (gs/2)
+    margin-bottom 4*gs
+    position relative
+    z-index 1
+  &--date
+    font-size 20px
+    line-height 24px
+    margin-bottom 2.5*gs
+    font-weight 300
+  img
+    max-width 100%
+    height auto
+    margin-bottom gs
+    display block
+  a
+    color #61dcff
+
+  p 
+    text-align left
+    font-size 18px
+    line-height 22px
+    word-wrap pre
+
+    & + p
+      margin-top 2*gs
+
+  blockquote
+    margin 2*gs 0
+    p
+      font inherit
+
+  .share
+    display inline-block
+    margin-top 5.5*gs
+
+  &--footer
+    margin-top 3*gs
+    text-align center
+    &--section
+      width (100/3)%
+      float left
+      & + &
+        .post--footer--section--content
+          border-left 1px solid #44596e
+      &--content
+        text-align left
+        padding-left gs
+        font-size 18px
+        font-weight 100
+        display inline-block
+
+// MOVE
+
+.post
+  padding-bottom 2*gs
+  p + img
+   margin-top gs
+
+  img
+    max-width 100%
+
+.comment
+  &--text
+    p
+      display inline
+
+
+.comment-respond
+  margin-top 5*gs
+
+#disqus_thread
+  margin-top 2*gs
+
+.blog-p--sidebar
+  text-align left
