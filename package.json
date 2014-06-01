@@ -23,7 +23,6 @@
     "gulp-watch": "*",
     "gulp-coffeelint": "*",
     "gulp-plumber": "*",
-    "gulp-karma": "*",
     "gulp-concat": "*",
     "gulp-csslint": "*"
   }
