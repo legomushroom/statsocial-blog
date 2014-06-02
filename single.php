@@ -177,6 +177,5 @@ statsocial_append_default_sidebar();
                 ?>
         </div>
     </div>
-           
-<!-- </div> -->
+</div>
     <?php get_footer( $statsocial_document_type ); ?>

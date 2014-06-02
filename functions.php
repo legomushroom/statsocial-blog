@@ -1578,28 +1578,28 @@ if ( !function_exists( 'statsocial_comment' ) ) {
                 $stylesheet_uri  = get_stylesheet_directory_uri();
                 //$stylesheet_uri	= str_replace(  'http:','', $stylesheet_uri  );
                 $stylesheet_path = get_stylesheet_directory();
-                $reset_font_grid = $stylesheet_uri . '/reset-fonts-grids.css';
+                // $reset_font_grid = $stylesheet_uri . '/reset-fonts-grids.css';
 
-                if ( !file_exists( $stylesheet_path . '/reset-fonts-grids.css' ) ) {
+                // if ( !file_exists( $stylesheet_path . '/reset-fonts-grids.css' ) ) {
 
-                    $reset_font_grid = $template_uri . '/reset-fonts-grids.css';
-                }
+                //     $reset_font_grid = $template_uri . '/reset-fonts-grids.css';
+                // }
                 wp_register_style( 'statsocial_reset_fonts_grids', $reset_font_grid, array(), $statsocial_current_data_version, 'all' );
                 wp_enqueue_style( 'statsocial_reset_fonts_grids' );
-                $grids = $stylesheet_uri . '/grids.css';
+                // $grids = $stylesheet_uri . '/grids.css';
 
-                if ( !file_exists( $stylesheet_path . '/grids.css' ) ) {
+                // if ( !file_exists( $stylesheet_path . '/grids.css' ) ) {
 
-                    $grids = $template_uri . '/grids.css';
-                }
+                //     $grids = $template_uri . '/grids.css';
+                // }
                 wp_register_style( 'statsocial_grids', $grids, array( 'statsocial_reset_fonts_grids' ), $statsocial_current_data_version, 'all' );
                 wp_enqueue_style( 'statsocial_grids' );
-                $fonts = $stylesheet_uri . '/fonts.css';
+                // $fonts = $stylesheet_uri . '/fonts.css';
 
-                if ( !file_exists( $stylesheet_path . '/fonts.css' ) ) {
+                // if ( !file_exists( $stylesheet_path . '/fonts.css' ) ) {
 
-                    $fonts = $template_uri . '/fonts.css';
-                }
+                //     $fonts = $template_uri . '/fonts.css';
+                // }
                 wp_register_style( 'statsocial_fonts', $fonts, array( 'statsocial_grids' ), $statsocial_current_data_version, 'all' );
                 wp_enqueue_style( 'statsocial_fonts' );
                 $language = get_locale();
@@ -1623,18 +1623,18 @@ if ( !function_exists( 'statsocial_comment' ) ) {
                     wp_enqueue_style( 'lang_style' );
                 }
 
-                if ( statsocial_warehouse_clone( "statsocial_style_type" ) !== 'w3standard' ) {
+                // if ( statsocial_warehouse_clone( "statsocial_style_type" ) !== 'w3standard' ) {
 
-                    if ( file_exists( get_stylesheet_directory() . '/css3.css' ) ) {
+                //     if ( file_exists( get_stylesheet_directory() . '/css3.css' ) ) {
 
-                        $statsocial_css3 = $stylesheet_uri . '/css3.css';
-                    } else {
+                //         $statsocial_css3 = $stylesheet_uri . '/css3.css';
+                //     } else {
 
-                        $statsocial_css3 = $template_uri . '/css3.css';
-                    }
-                    wp_register_style( 'statsocial_css3', $statsocial_css3, array( 'statsocial_fonts' ), $statsocial_current_data_version, 'all' );
-                    wp_enqueue_style( 'statsocial_css3' );
-                }
+                //         $statsocial_css3 = $template_uri . '/css3.css';
+                //     }
+                //     wp_register_style( 'statsocial_css3', $statsocial_css3, array( 'statsocial_fonts' ), $statsocial_current_data_version, 'all' );
+                //     wp_enqueue_style( 'statsocial_css3' );
+                // }
                 $child = $template_uri . '/style.css';
                 wp_register_style( 'style', $child, array( 'statsocial_fonts' ), $statsocial_current_data_version, 'all' );
                 wp_enqueue_style( 'style' );
@@ -1646,12 +1646,12 @@ if ( !function_exists( 'statsocial_comment' ) ) {
                     wp_enqueue_style( 'child' );
                 }
                 /* add small js */
-                $statsocial_js = $stylesheet_uri . '/statsocial.js';
+                // $statsocial_js = $stylesheet_uri . '/statsocial.js';
 
-                if ( !file_exists( $stylesheet_path . '/statsocial.js' ) ) {
+                // if ( !file_exists( $stylesheet_path . '/statsocial.js' ) ) {
 
-                    $statsocial_js = $template_uri . '/statsocial.js';
-                }
+                //     $statsocial_js = $template_uri . '/statsocial.js';
+                // }
                 wp_register_script( 'statsocial', $statsocial_js, array( 'jquery', 'jquery-migrate' ), $statsocial_current_data_version, false );
                 wp_enqueue_script( 'statsocial' );
             }
