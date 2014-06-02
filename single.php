@@ -42,7 +42,6 @@ do_action( 'statsocial_pre_' . basename( __FILE__ ) );
 statsocial_debug_navitation( __FILE__ );
 ?>
 
-<?php include 'icons.svg'; ?>
 
 
  <?php
@@ -103,6 +102,10 @@ statsocial_append_default_sidebar();
                         }
                         ?>
                         <<?php statsocial_doctype_elements( 'div', 'article' ); ?> id="post-<?php the_ID(); ?>" class="post" <?php statsocial_post_class( array( 'clearfix' ) ); ?>>	
+                        
+                        
+
+
                         <?php
                         if ( is_sticky() ) {
                             ?>
@@ -175,6 +178,8 @@ statsocial_append_default_sidebar();
                 }
                 //add nest grid here
                 ?>
+
+
         </div>
     </div>
 </div>

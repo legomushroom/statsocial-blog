@@ -96,7 +96,7 @@ if ( !isset( $statsocial_actions_hook_message ) ) {
  */
 if ( !isset( $statsocial_status_bar ) ) {
 
-    $statsocial_status_bar = true;
+    $statsocial_status_bar = false;
 }
 /**
  * Current version of WordPress
@@ -1144,10 +1144,10 @@ if ( !function_exists( 'statsocial_comment' ) ) {
 
                     if ( $tag_list ) {
 
-                        $posted_in = '<span class="this-posted-in">' . esc_html__( 'This entry was posted in', 'statsocial' ) . '</span> %1$s <span class="tagged">' . esc_html__( 'and tagged', 'statsocial' ) . '</span> %2$s';
+                        $posted_in = '<span class="this-posted-in">' . esc_html__( 'Posted in', 'statsocial' ) . '</span> %1$s'; //. '<span class="tagged">' . esc_html__( 'and tagged', 'statsocial' ) . '</span> %2$s';
                     } elseif ( is_object_in_taxonomy( get_post_type(), 'category' ) ) {
 
-                        $posted_in = '<span class="this-posted-in">' . esc_html__( 'This entry was posted in', 'statsocial' ) . '</span> %1$s ';
+                        $posted_in = '<span class="this-posted-in">' . esc_html__( 'Posted in', 'statsocial' ) . '</span> %1$s ';
                     } else {
 
                         $posted_in = '';
@@ -1158,16 +1158,51 @@ if ( !function_exists( 'statsocial_comment' ) ) {
 
                     if ( $tag_list ) {
 
-                        $posted_in = '<span class="this-posted-in">' . esc_html__( 'This entry was posted in', 'statsocial' ) . '</span> %1$s <span class="tagged">' . esc_html__( 'and tagged', 'statsocial' ) . '</span> %2$s ' . '  <span class="post-format-text">%4$s</span> <a href="%3$s"> <span class="post-format">%5$s</span></a>';
+                        $posted_in = '<span class="this-posted-in">' . esc_html__( 'This entry was posted in', 'statsocial' ) . '</span> %1$s <span class="tagged">' . esc_html__( 'and tagged', 'statsocial' ) . '</span> %2$s ' . '  <span class="post-format-text">%4$s</span> <a href="%3$s" class="is-hoverable"> <span class="post-format">%5$s</span></a>';
                     } elseif ( is_object_in_taxonomy( get_post_type(), 'category' ) ) {
 
-                        $posted_in = '<span class="this-posted-in">' . esc_html__( 'This entry was posted in', 'statsocial' ) . '</span> %1$s %2$s' . '  <span class="post-format-text">%4$s</span><a href="%3$s"> <span class="post-format">%5$s</span></a>';
+                        $posted_in = '<span class="this-posted-in">' . esc_html__( 'This entry was posted in', 'statsocial' ) . '</span> %1$s %2$s' . '  <span class="post-format-text">%4$s</span><a href="%3$s" class="is-hoverable"> <span class="post-format">%5$s</span></a>';
                     } else {
 
-                        $posted_in = '<a href="%3$s">   <span class="post-format-text">%4$s</span> <span class="post-format">%5$s</span></a>';
+                        $posted_in = '<a href="%3$s" class="is-hoverable">   <span class="post-format-text">%4$s</span> <span class="post-format">%5$s</span></a>';
                     }
                     $result = sprintf( $posted_in, get_the_category_list( ' ' ), $tag_list, esc_url( get_post_format_link( $format ) ), esc_html( 'Format', 'statsocial' ), get_post_format_string( $format ) );
                     echo apply_filters( "statsocial_posted_in", $result );
+                }
+            }
+
+        }
+        /**
+         * Template function posted in
+         *
+         *
+         *
+         * loop.php
+         *
+         */
+        if ( !function_exists( 'statsocial_tagged' ) ) {
+
+            function statsocial_tagged() {
+
+                global $post;
+
+                if ( is_sticky() ) {
+
+                    return;
+                }
+                $format   = get_post_format( $post->ID );
+                $tag_list = get_the_tag_list( '', ' ' );
+
+                if ( false === $format ) {
+
+                    if ( $tag_list ) {
+                        $posted_in = '<span class="tagged">' . esc_html__( 'Tagged', 'statsocial' ) . '</span> %2$s';
+                    } else {
+
+                        $posted_in = '';
+                    }
+                    $result = $format . sprintf( $posted_in, get_the_category_list( ' ' ), $tag_list );
+                    echo apply_filters( "statsocial_tagged", $result );
                 }
             }
 
@@ -1301,7 +1336,6 @@ if ( !function_exists( 'statsocial_comment' ) ) {
         if ( !function_exists( 'statsocial_admin_meta' ) ) {
 
             function statsocial_admin_meta( $name, $meta_name ) {
-
                 global $statsocial_base_setting;
                 global $statsocial_page_width;
                 $vertical = array();
@@ -5211,7 +5245,7 @@ if ( !function_exists( 'statsocial_recent_posts' ) ) {
             $classes = 'class="' . join( ' ', $classes ) . '"';
 
             $result .= sprintf( $html, get_permalink( $val['ID'] ), $val['post_title'], $list_num_class, statsocial_doctype_elements( 'div', 'article', false ), $val['ID'], $classes, sprintf( '<a href="%1$s" title="%2$s"><%4$s class="entry-date updated" %5$s>%3$s</%4$s></a>&nbsp;', $day_link, esc_attr( 'archives daily ' . mysql2date( $val["post_date"], $statsocial_date_format ) ), esc_html( mysql2date( $statsocial_date_format, $val["post_date"] ) ), statsocial_doctype_elements( 'span', 'time', false ), statsocial_doctype_elements( '', 'datetime="' . esc_attr( get_the_date( 'c' ) ) . '"', false )
-                    ), sprintf( '<span class="author vcard"><a class="url fn n" href="%1$s" title="%2$s" rel="vcard:url">%3$s</a></span> ', get_author_posts_url( $val["post_author"] ), sprintf( esc_attr__( 'View all posts by %s', 'statsocial' ), $author ), $author
+                    ), sprintf( '<span class="author vcard"><a class="is-hoverable" class="url fn n" href="%1$s" title="%2$s" rel="vcard:url">%3$s</a></span> ', get_author_posts_url( $val["post_author"] ), sprintf( esc_attr__( 'View all posts by %s', 'statsocial' ), $author ), $author
                     ), wp_html_excerpt( $post_content, $statsocial_excerpt_length, $statsocial_excerpt_more ), $thumbnail, $article_margin
             );
         }
@@ -5250,7 +5284,7 @@ if ( !function_exists( 'statsocial_category_posts' ) ) {
         $thumbnail_height = ( int ) $thumbnail_size[0];
 
         $html          = '<li class="%3$s">%10$s<%4$s id="post-%5$s-catpost" %6$s style="%11$s"><div class="posted-on">
-%7$s%8$s</div><h3 class="h4 entry-title"><a href="%1$s"><span>%2$s</span></a></h3><div class="entry-content clearfix">%9$s</div></%4$s></li>';
+%7$s%8$s</div><h3 class="h4 entry-title"><a class="is-hoverable" href="%1$s"><span>%2$s</span></a></h3><div class="entry-content clearfix">%9$s</div></%4$s></li>';
         $archive_year  = get_the_time( 'Y' );
         $archive_month = get_the_time( 'm' );
         $archive_day   = get_the_time( 'd' );
@@ -6811,7 +6845,7 @@ if ( !function_exists( 'statsocial_tile' ) ) {
         }
 
         $statsocial_posts     = get_posts( $args );
-        $statsocial_html_page = '<li><a href="%1$s" class="%2$s"><span class="%3$st">%4$s</span></a></li>';
+        $statsocial_html_page = '<li><a class="is-hoverable" href="%1$s" class="%2$s"><span class="%3$st">%4$s</span></a></li>';
 
         if ( !empty( $statsocial_posts ) ) {
             ?><div id="portfolio" class="portfolio column-<?php echo $args['statsocial_tile_col']; ?>"><?php
@@ -6830,7 +6864,7 @@ if ( !function_exists( 'statsocial_tile' ) ) {
 
                 $statsocial_loop_number++;
                 ?><<?php statsocial_doctype_elements( 'div', 'article' ); ?> id="post-tile-<?php echo $post->ID; ?>" <?php statsocial_post_class( '', $post->ID ); ?> >
-                    <span class="entry-title"><a href="<?php echo get_permalink( $post->ID ); ?>">
+                    <span class="entry-title"><a class="is-hoverable" href="<?php echo get_permalink( $post->ID ); ?>">
                 <?php
                     $title = get_the_title( $post->ID );
                     $title = wp_html_excerpt( $title, apply_filters( 'statsocial_tile_title_length', 40 ), apply_filters( 'statsocial_tile_title_more', '...' ) );
@@ -6841,7 +6875,7 @@ if ( !function_exists( 'statsocial_tile' ) ) {
                             <?php statsocial_posted_on(); ?>
                     </div>
                     <div class="entry-content clearfix">
-                        <a href="<?php echo get_comments_link( $post->ID ); ?>" class="statsocial-comment-link"><span class="statsocial-comment-string point"></span><em><?php esc_html_e( 'Comment', 'statsocial' ); ?></em></a>
+                        <a class="is-hoverable" href="<?php echo get_comments_link( $post->ID ); ?>" class="statsocial-comment-link"><span class="statsocial-comment-string point"></span><em><?php esc_html_e( 'Comment', 'statsocial' ); ?></em></a>
                     </div>
                     <div class="entry-meta">
                 <?php edit_post_link( esc_html__( 'Edit', 'statsocial' ) . statsocial_link_unique( 'Post', $post->ID ), '<span class="edit-link">', '</span>', $post->ID ); ?>

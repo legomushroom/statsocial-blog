@@ -34,6 +34,18 @@ do_action( 'statsocial_pre_part_' . basename( __FILE__, '.php' ) . '_' . basenam
 
   ?>
 
+  <h2>StatSocial</h2>
+  <ul class="">
+    <li class=""><a href="http://statsocial.com">Stat Social</a></li>
+    <li class=""><a href="http://statsocial.com/sample-reports/">Stat Social Demo</a></li>
+    <li class=""><a href="#">Stat Social Pricing</a></li>
+    <li class=""><a href="http://statsocialblog.disqus.com/latest.rss">Comments RSS</a></li>
+    <li class=""><a href="?feed=rss2">Posts RSS</a></li>
+    <li class=""><a href="https://twitter.com/statsocial">Twitter</a></li>
+    <li class=""><a href="https://www.facebook.com/statsocial">Facebook</a></li>
+    <li class=""><a href="https://www.linkedin.com/company/3188281?trk=prof-0-ovw-curr_pos">LinkedIn</a></li>
+  </ul>
+
 
 
 	</<?php statsocial_doctype_elements( 'div', 'nav' ); ?>>

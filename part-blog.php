@@ -203,6 +203,10 @@ if ( is_single() ) {
 
                 if ( is_user_logged_in() && is_tax() ) {
                     ?>
+
+            
+
+
             <div class="entry-utility entry-meta clear">
             <?php
             edit_post_link( esc_html__( 'Edit', 'statsocial' ) . statsocial_link_unique( 'Post', $post->ID ), '<span class="edit-link">', '</span>' );

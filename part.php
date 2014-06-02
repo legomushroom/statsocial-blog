@@ -43,7 +43,41 @@ if ( false === $format ) {
             ?>
         </div>
 
-        <div class="entry-utility entry-meta">
+        <div class="share cf">
+            <div id="" title="" class="icon ">
+              <svg viewBox="0 0 32 32">
+                <use xlink:href="#twitter-icon"></use>
+              </svg>
+            </div>
+            <div id="" title="" class="icon ">
+              <svg viewBox="0 0 32 32">
+                <use xlink:href="#fb-icon"></use>
+              </svg>
+            </div>
+            <div id="" title="" class="icon ">
+              <svg viewBox="0 0 32 32">
+                <use xlink:href="#linkedin-icon"></use>
+              </svg>
+            </div>
+            <div id="" title="" class="icon ">
+              <svg viewBox="0 0 32 32">
+                <use xlink:href="#google-plus-icon"></use>
+              </svg>
+            </div>
+        </div>
+        <div class="post--footer">
+        <div class="post--footer--section"> 
+          <div class="post--footer--section--content"><?php echo statsocial_posted_in(); ?></div>
+        </div>
+        <div class="post--footer--section">
+          <div class="post--footer--section--content"><?php echo statsocial_tagged(); ?></div>
+        </div>
+        <div class="post--footer--section"> 
+          <div class="post--footer--section--content"><a class="is-hoverable" href="#">Leave a reply</a></div>
+        </div>
+      </div>
+
+       <!--  <div class="entry-utility entry-meta">
             <?php
             echo statsocial_posted_in();
 
@@ -51,6 +85,7 @@ if ( false === $format ) {
 
             statsocial_delete_post_link( esc_html__( 'Trash', 'statsocial' ) . statsocial_link_unique( 'Post', $post->ID ), '<span class="edit-link">', '</span>' );
             ?>
+        </div> -->
         </div>
 <?php
 if ( is_single() ) {
