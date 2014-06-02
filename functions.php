@@ -2662,22 +2662,18 @@ id=\"post-" . $mytime->ID . "\">$mytime->post_title</a><br />";
                 $page_title_c         = "";
 
                 if ( is_search() ) {
-
                     $statsocial_class_name = 'serch-result';
                     $page_title           = esc_html__( "Search Results", 'statsocial' );
                     $page_title_c         = get_search_query();
                 } elseif ( is_tag() ) {
-
                     $statsocial_class_name = 'tag-archives';
                     $page_title           = esc_html__( "Tag:", 'statsocial' );
                     $page_title_c         = single_term_title( "", false );
                 } elseif ( is_category() ) {
-
                     $statsocial_class_name = 'category-archives';
                     $page_title           = esc_html__( "Category:", 'statsocial' );
                     $page_title_c         = single_cat_title( '', false );
                 } elseif ( is_archive() ) {
-
                     $statsocial_date_format = get_option( 'date_format' );
 
                     if ( is_day() ) {
