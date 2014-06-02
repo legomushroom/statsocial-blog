@@ -66,16 +66,16 @@ if ( false === $format ) {
             </div>
         </div>
         <div class="post--footer">
-        <div class="post--footer--section"> 
-          <div class="post--footer--section--content"><?php echo statsocial_posted_in(); ?></div>
+          <div class="post--footer--section"> 
+            <div class="post--footer--section--content"><?php echo statsocial_posted_in(); ?></div>
+          </div>
+          <div class="post--footer--section">
+            <div class="post--footer--section--content"><?php echo statsocial_tagged(); ?></div>
+          </div>
+          <div class="post--footer--section"> 
+            <div class="post--footer--section--content"><a class="is-hoverable" href="#">Leave a reply</a></div>
+          </div>
         </div>
-        <div class="post--footer--section">
-          <div class="post--footer--section--content"><?php echo statsocial_tagged(); ?></div>
-        </div>
-        <div class="post--footer--section"> 
-          <div class="post--footer--section--content"><a class="is-hoverable" href="#">Leave a reply</a></div>
-        </div>
-      </div>
 
        <!--  <div class="entry-utility entry-meta">
             <?php

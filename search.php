@@ -16,15 +16,23 @@ do_action( 'statsocial_' . basename( __FILE__ ) );
 get_header( $statsocial_document_type );
 do_action( 'statsocial_pre_' . basename( __FILE__ ) );
 ?>
-<div id="yui-main">
+
+
+    <?php
+    statsocial_prepend_default_sidebar();
+
+    get_sidebar( 'default' );
+
+    statsocial_append_default_sidebar();
+    ?>  
+
 <?php statsocial_debug_navitation( __FILE__ ); ?>
-    <div class="yui-b">
-        <div class="<?php echo statsocial_yui_class_modify(); ?>" id="container">
-            <div class="yui-u first<?php statsocial_add_class( 'yui-u first', true ); ?>" <?php statsocial_doctype_elements( '', 'role="main"' ); ?>>
 <?php statsocial_prepend_loop(); ?>
 <?php if ( have_posts() ) { ?>
 
-                    <h1 class="pagetitle h1">Search Results : <?php the_search_query(); ?></h1>
+                    <strong class="f16" id="archives-title">Search Results for "<?php the_search_query(); ?>"</strong>
+                    
+                    <!-- <h1 class="pagetitle h1">Search Results : <?php the_search_query(); ?></h1> -->
                     <ul class="search-results">
                         <li>
                             <?php
@@ -32,46 +40,98 @@ do_action( 'statsocial_pre_' . basename( __FILE__ ) );
                             ?>
                         </li>
                         <?php
-                        while ( have_posts() ) {
+                        // statsocial_loop_title();
 
-                            the_post();
-                            ?>
-                            <li>
-                                <div id="post-<?php the_ID(); ?>" <?php statsocial_post_class(); ?> >
-                                    <?php
-                                    statsocial_entry_title();
-                                    ?>
-                                    <div class="posted-on">
-                                        <?php
-                                        statsocial_posted_on();
-                                        ?>
-                                    </div>
-                                    <div class="entry-content clearfix">
+    $statsocial_loop_number = 1;
 
-                                        <?php
-                                        statsocial_prepend_entry_content();
+    while ( have_posts() ) {
 
-                                        statsocial_entry_content();
-                                        ?>
-                                        <br class="clear" />
-                                        <?php
-                                        statsocial_append_entry_content();
-                                        ?>
-                                    </div>
-                                    <div class="entry-meta">
-                                        <?php
-                                        statsocial_posted_in();
+        the_post();
 
-                                        edit_post_link( esc_html__( 'Edit', 'statsocial' ) . statsocial_link_unique( 'Post', $post->ID ), '<span class="edit-link">', '</span>' );
+        $statsocial_loop_class = statsocial_loop_class( $statsocial_loop_number, get_the_ID() );
 
-                                        statsocial_delete_post_link( esc_html__( 'Trash', 'statsocial' ) . statsocial_link_unique( 'Post', $post->ID ), '<span class="edit-link">', '</span>' );
-                                        ?>
-                                    </div>
-                                    <br class="clear" />
-                                </div>
-                            </li>
+        printf( '<li class="loop-%1$s%2$s">', esc_attr( trim( $statsocial_loop_class[ 0 ] ) ), esc_attr( rtrim( $statsocial_loop_class[ 1 ] ) )
+        );
 
-                        <?php }//while ( have_posts( ) )	?>
+        $statsocial_loop_number++;
+        ?>              
+        <<?php statsocial_doctype_elements( 'div', 'article' ); ?> id="post-<?php the_ID(); ?>" <?php statsocial_post_class(); ?>>      
+        <?php
+        $format = get_post_format();
+        /**
+         * In category gallery
+         *
+         *
+         *
+         *
+         */
+        if ( in_category( "gallery" ) || has_post_format( "gallery" ) ) {
+
+            get_template_part( 'part', 'gallery' );
+            /**
+             * In category blog 
+             *
+             *
+             *
+             *
+             */
+        } elseif ( in_category( "blog" ) || has_post_format( "status" ) ) {
+
+            get_template_part( 'part', 'blog' );
+        } elseif ( $format !== false ) {
+
+            get_template_part( 'part', $format );
+            /**
+             * Default loop
+             *
+             *
+             *
+             *
+             */
+        } else {
+            ?>
+            <?php
+            statsocial_entry_title();
+            ?>
+
+            <div class="post--footer m-b-x2-g cf">
+            <div class="post--footer--section"> 
+              <div class="post--footer--section--content"><?php echo statsocial_posted_in(); ?></div>
+            </div>
+            <div class="post--footer--section">
+              <div class="post--footer--section--content"><?php echo statsocial_tagged(); ?></div>
+            </div>
+            <div class="post--footer--section"> 
+              <div class="post--footer--section--content"><?php statsocial_posted_on(true);?></div>
+            </div>
+          </div>
+
+
+
+            <div class="entry-content clearfix">
+                <?php
+                statsocial_prepend_entry_content();
+
+                statsocial_entry_content();
+                ?>
+                <br class="clear" />
+                <?php
+                statsocial_append_entry_content();
+                ?>
+            </div>
+
+            <!-- edit_post_link( esc_html__( 'Edit', 'statsocial' ) . statsocial_link_unique( 'Post', $post->ID ), '<span class="edit-link">', '</span>' ); -->
+
+
+                <?php
+            }
+            ?>
+        <br class="clear" />
+        </<?php statsocial_doctype_elements( 'div', 'article' ); ?>>
+        </li>
+        <?php
+    } //end while
+    ?>
 
                         <li>
                             <?php
@@ -80,8 +140,8 @@ do_action( 'statsocial_pre_' . basename( __FILE__ ) );
                         </li>
                     </ul>
                 <?php } else { ?>
-                    <div class="fail-search">
-                        <h2 class="center h2">
+                    <div class="fail-search cf p-r-x10-g" style="margin-left: 420px">
+                        <h2 class="h2 m-b-x2-g l-h-x2-25-g">
                             <?php
                             esc_html_e( "Nothing was found though it was regrettable. Please change the key word if it is good, and retrieve it.", "statsocial" );
                             ?>
@@ -91,29 +151,9 @@ do_action( 'statsocial_pre_' . basename( __FILE__ ) );
                 <?php } ?>
                 <?php statsocial_append_loop(); ?>
             </div>
-            <div class="yui-u">
-                <?php
-                statsocial_prepend_extra_sidebar();
 
-                if ( $rsidebar_show ) {
 
-                    get_sidebar( 'extra' );
-                }
 
-                statsocial_append_extra_sidebar();
-                ?>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="yui-b">
-    <?php
-    statsocial_prepend_default_sidebar();
 
-    get_sidebar( 'default' );
-
-    statsocial_append_default_sidebar();
-    ?>	
-</div>
 </div>
 <?php get_footer( $statsocial_document_type ); ?>

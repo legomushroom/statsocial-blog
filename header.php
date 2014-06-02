@@ -29,7 +29,7 @@ do_action( 'statsocial_pre_part_' . basename( __FILE__, '.php' ) . '_' . basenam
             </div>
           </a>
           <div id="js-menu-btn" class="page-menu-header">
-            <div id="" title="" class="icon page-header2--menu-icon">
+            <div id="js-menu-launcher" title="" class="icon page-header2--menu-icon">
               <svg viewBox="0 0 32 32">
                 <use xlink:href="#menu-icon"></use>
               </svg>

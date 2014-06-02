@@ -10,6 +10,15 @@
 body
   background white
 
+#archives-title
+  margin-bottom 4*gs
+  display block
+  font-size 24px
+  border-bottom 2px solid #f1f1f1
+  padding-bottom 1.5*gs
+  margin-left 400px
+  max-width 720px
+
 /* 3d1b1302ecf8441b0d6403758eaf80ee */
 .post
   text-align center
@@ -53,7 +62,7 @@ body
   p 
     text-align left
     font-size 18px
-    line-height 22px
+    line-height 26px
     word-wrap pre
 
     & + p
@@ -84,6 +93,9 @@ body
         font-weight 100
         display inline-block
 
+  .post--footer--section
+    padding-right gs
+
 // MOVE
 .post
   padding-bottom 2*gs
@@ -107,3 +119,43 @@ body
 
 .blog-p--sidebar
   text-align left
+  li + li
+    margin-top: (gs/2)
+
+
+
+
+.nav-previous, .nav-next
+  &:hover
+    cursor pointer
+    text-decoration underline
+
+#nav-below
+  margin-left 7*gs
+  margin-top 4*gs
+  display inline-block
+  &:hover
+    cursor pointer
+
+.index
+  .loop-item-show-allways
+    & + .loop-item-show-allways
+      margin-top 3*gs
+
+
+.l-h-x3-g
+  line-height 3*gs
+
+.l-h-x2-5-g
+  line-height 2.5*gs
+
+.l-h-x2-25-g
+  line-height 2.25*gs
+
+.search-input
+  max-width 76*gs
+
+ul.search-results
+  margin-left 40*gs
+
+

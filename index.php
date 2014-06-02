@@ -24,29 +24,22 @@ get_header( $statsocial_document_type );
 do_action( 'statsocial_pre_' . basename( __FILE__ ) );
 statsocial_debug_navitation( __FILE__ );
 ?>
-<!-- <div id="yui-main"> -->
-    <!-- <div class="yui-b"> -->
-                <?php get_template_part( 'widget', 'sticky' ); ?>
-        <div class="<?php echo statsocial_yui_class_modify(); ?>" id="container">
-            <div class="yui-u first<?php statsocial_add_class( 'yui-u first', true ); ?>" <?php statsocial_doctype_elements( '', 'role="main"' ); ?>>
-<?php get_template_part( 'loop', $statsocial_document_type ); ?>
-                <br style="clear:both" />			
-            </div>
-            <div class="yui-u">
-                <?php statsocial_prepend_extra_sidebar(); ?>
-            <?php if ( $rsidebar_show ) {
-                get_sidebar( 'extra' );
-            } ?>
+
+<?php statsocial_prepend_extra_sidebar(); ?>
+
 <?php statsocial_append_extra_sidebar(); ?>
-            </div>
-    <?php //add nest grid here  ?>
-        </div>
-    <!-- </div> -->
-<!-- </div> -->
-<!-- <div class="yui-b"> -->
+<?php //add nest grid here  ?>
 <?php statsocial_prepend_default_sidebar(); ?>
 <?php get_sidebar( 'default' ); ?>
-<?php statsocial_append_default_sidebar(); ?>	
-<!-- </div> -->
+<?php statsocial_append_default_sidebar(); ?>   
+
+
+
+<?php get_template_part( 'widget', 'sticky' ); ?>
+
+<?php get_template_part( 'loop', $statsocial_document_type ); ?>
+
+        </div>
+    </div>
 </div>
 <?php get_footer( $statsocial_document_type ); ?>

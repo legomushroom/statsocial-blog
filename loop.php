@@ -73,11 +73,19 @@ if ( have_posts() ) {
             statsocial_entry_title();
             ?>
 
-            <div class="posted-on">
-                <?php
-                statsocial_posted_on();
-                ?>
+            <div class="post--footer m-b-x2-g cf">
+            <div class="post--footer--section"> 
+              <div class="post--footer--section--content"><?php echo statsocial_posted_in(); ?></div>
             </div>
+            <div class="post--footer--section">
+              <div class="post--footer--section--content"><?php echo statsocial_tagged(); ?></div>
+            </div>
+            <div class="post--footer--section"> 
+              <div class="post--footer--section--content"><?php statsocial_posted_on(true);?></div>
+            </div>
+          </div>
+
+
 
             <div class="entry-content clearfix">
                 <?php
@@ -90,15 +98,10 @@ if ( have_posts() ) {
                 statsocial_append_entry_content();
                 ?>
             </div>
-            <div class="entry-meta">
-            <?php
-            statsocial_posted_in();
 
-            edit_post_link( esc_html__( 'Edit', 'statsocial' ) . statsocial_link_unique( 'Post', $post->ID ), '<span class="edit-link">', '</span>' );
+            <!-- edit_post_link( esc_html__( 'Edit', 'statsocial' ) . statsocial_link_unique( 'Post', $post->ID ), '<span class="edit-link">', '</span>' ); -->
 
-            statsocial_delete_post_link( esc_html__( 'Trash', 'statsocial' ) . statsocial_link_unique( 'Post', $post->ID ), '<span class="edit-link">', '</span>' );
-            ?>
-            </div>
+
                 <?php
             }
             ?>

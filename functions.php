@@ -1257,7 +1257,7 @@ if ( !function_exists( 'statsocial_comment' ) ) {
          */
         if ( !function_exists( 'statsocial_posted_on' ) ) {
 
-            function statsocial_posted_on() {
+            function statsocial_posted_on($isShort) {
 
                 global $post;
                 $statsocial_date_format = get_option( 'date_format' ); //' . ' . get_option( 'time_format' );
@@ -1267,7 +1267,11 @@ if ( !function_exists( 'statsocial_comment' ) ) {
                 $archive_day           = get_the_time( 'd' );
                 $day_link              = esc_url( get_day_link( $archive_year, $archive_month, $archive_day ) . '#post-' . $post->ID );
 
-                $result = sprintf( esc_html__( '%1$s %5$s %2$s %6$s %3$s %4$s', 'statsocial' ), '<span class="meta-prep meta-prep-author">', '</span>' . sprintf( '<a href="%1$s" title="%2$s"><%4$s class="entry-date updated" %5$s>%3$s</%4$s></a>', $day_link, esc_attr( 'archives daily ' . get_the_time( $statsocial_date_format ) ), get_the_date( $statsocial_date_format ), statsocial_doctype_elements( 'span', 'time', false ), statsocial_doctype_elements( '', 'datetime="' . esc_attr( get_the_date( 'c' ) ) . '"', false ) ) . '<span class="meta-sep">', '</span>' . sprintf( '<span class="author vcard"><a class="url fn n" href="%1$s" title="%2$s" rel="vcard:url">%3$s</a></span> ', get_author_posts_url( get_the_author_meta( 'ID' ) ), sprintf( esc_attr__( 'View all posts by %s', 'statsocial' ), wp_kses( $author, array() ) ), $author ), apply_filters( 'statsocial_posted_on_comment_link', statsocial_comments_link() ), '<span class="posted-on-string">' . __( 'Posted on', 'statsocial' ) . '</span>', '<span class="posted-by-string">' . __( 'by', 'statsocial' ) . '</span>' );
+                if (!$isShort){
+                    $result = sprintf( esc_html__( '%1$s %5$s %2$s %6$s %3$s %4$s', 'statsocial' ), '<span class="meta-prep meta-prep-author">', '</span>' . sprintf( '<a href="%1$s" title="%2$s"><%4$s class="entry-date updated" %5$s>%3$s</%4$s></a>', $day_link, esc_attr( 'archives daily ' . get_the_time( $statsocial_date_format ) ), get_the_date( $statsocial_date_format ), statsocial_doctype_elements( 'span', 'time', false ), statsocial_doctype_elements( '', 'datetime="' . esc_attr( get_the_date( 'c' ) ) . '"', false ) ) . '<span class="meta-sep">', '</span>' . sprintf( '<span class="author vcard"><a class="url fn n" href="%1$s" title="%2$s" rel="vcard:url">%3$s</a></span> ', get_author_posts_url( get_the_author_meta( 'ID' ) ), sprintf( esc_attr__( 'View all posts by %s', 'statsocial' ), wp_kses( $author, array() ) ), $author ), apply_filters( 'statsocial_posted_on_comment_link', statsocial_comments_link() ), '<span class="posted-on-string">' . __( 'Posted on', 'statsocial' ) . '</span>', '<span class="posted-by-string">' . __( 'by', 'statsocial' ) . '</span>' );
+                } else {
+                    $result = sprintf( esc_html__( '%1$s %5$s %2$s %6$s %3$s %4$s', 'statsocial' ), '<span class="meta-prep meta-prep-author">', '</span>' . sprintf( '<a href="%1$s" title="%2$s"><%4$s class="entry-date updated" %5$s>%3$s</%4$s></a>', $day_link, esc_attr( 'archives daily ' . get_the_time( $statsocial_date_format ) ), get_the_date( $statsocial_date_format ), statsocial_doctype_elements( 'span', 'time', false ), statsocial_doctype_elements( '', 'datetime="' . esc_attr( get_the_date( 'c' ) ) . '"', false ) ) . '<span class="meta-sep">', '</span>' . sprintf( '<span class="author vcard"><a class="url fn n" href="%1$s" title="%2$s" rel="vcard:url">%3$s</a></span> ', get_author_posts_url( get_the_author_meta( 'ID' ) ), sprintf( esc_attr__( 'View all posts by %s', 'statsocial' ), wp_kses( $author, array() ) ), $author ), apply_filters( 'statsocial_posted_on_comment_link', statsocial_comments_link() ), '<span class="posted-on-string"></span>', '<span class="posted-by-string">' . __( 'by', 'statsocial' ) . '</span>' );
+                }
 
                 $format              = get_post_format();
                 $content_empty_check = trim( get_the_content() );
@@ -1336,6 +1340,7 @@ if ( !function_exists( 'statsocial_comment' ) ) {
         if ( !function_exists( 'statsocial_admin_meta' ) ) {
 
             function statsocial_admin_meta( $name, $meta_name ) {
+                return;
                 global $statsocial_base_setting;
                 global $statsocial_page_width;
                 $vertical = array();
@@ -2111,6 +2116,7 @@ if ( !function_exists( 'statsocial_comment' ) ) {
     #nav-below .nav-previous a,
     #nav-below .nav-next a{
     	color:{$color};
+        cursor: inherit;
 
     }
     .logged-in-as a:link,
@@ -2663,12 +2669,12 @@ id=\"post-" . $mytime->ID . "\">$mytime->post_title</a><br />";
                 } elseif ( is_tag() ) {
 
                     $statsocial_class_name = 'tag-archives';
-                    $page_title           = esc_html__( "Tag Archives", 'statsocial' );
+                    $page_title           = esc_html__( "Tag:", 'statsocial' );
                     $page_title_c         = single_term_title( "", false );
                 } elseif ( is_category() ) {
 
                     $statsocial_class_name = 'category-archives';
-                    $page_title           = esc_html__( "Category Archives", 'statsocial' );
+                    $page_title           = esc_html__( "Category:", 'statsocial' );
                     $page_title_c         = single_cat_title( '', false );
                 } elseif ( is_archive() ) {
 
@@ -5034,8 +5040,7 @@ if ( !function_exists( 'statsocial_entry_content' ) ) {
         } else {
 
             if ( empty( $more_link_text ) ) {
-
-                $more_link_text = esc_html__( 'Continue&nbsp;reading ', 'statsocial' ) . '<span class="meta-nav">&rarr;</span><span class="more-link-post-unique">' . esc_html__( '&nbsp;Post ID&nbsp;', 'statsocial' ) . get_the_ID() . '</span>';
+                $more_link_text = esc_html__( 'Continue&nbsp;reading ', 'statsocial' ) . '<span class="meta-nav">&rarr;</span>'; //.'<span class="more-link-post-unique">' . esc_html__( '&nbsp;Post ID&nbsp;', 'statsocial' ) . get_the_ID() . '</span>';
             }
             $content = get_the_content( $more_link_text, $stripteaser );
             $content = apply_filters( 'the_content', $content );
@@ -5176,7 +5181,7 @@ if ( !function_exists( 'statsocial_recent_posts' ) ) {
         $statsocial_date_format = get_option( 'date_format' ) . ' ' . get_option( 'time_format' );
         $day_link              = esc_url( get_day_link( $archive_year, $archive_month, $archive_day ) . '#post-' . $post->ID );
 
-        $html    = '<li class="%3$s">%10$s<%4$s id="post-%5$s-recentpost" %6$s style="%11$s"><div class="posted-on">
+        $html    = '<li class="%3$s">%10$s<%4$s id="post-%5$s-recentpost" %6$s style="%11$s"><div class="posted-on post--date">
 %7$s%8$s</div><h3 class="h4 entry-title"><a href="%1$s"><span>%2$s</span></a></h3><div class="entry-content clearfix">%9$s</div></%4$s></li>';
         $html    = apply_filters( 'statsocial_recent_posts_li', $html );
         $results = wp_get_recent_posts( $args );
@@ -5283,7 +5288,7 @@ if ( !function_exists( 'statsocial_category_posts' ) ) {
         $thumbnail_width  = ( int ) $thumbnail_size[0];
         $thumbnail_height = ( int ) $thumbnail_size[0];
 
-        $html          = '<li class="%3$s">%10$s<%4$s id="post-%5$s-catpost" %6$s style="%11$s"><div class="posted-on">
+        $html          = '<li class="%3$s">%10$s<%4$s id="post-%5$s-catpost" %6$s style="%11$s"><div class="posted-on post--date">
 %7$s%8$s</div><h3 class="h4 entry-title"><a class="is-hoverable" href="%1$s"><span>%2$s</span></a></h3><div class="entry-content clearfix">%9$s</div></%4$s></li>';
         $archive_year  = get_the_time( 'Y' );
         $archive_month = get_the_time( 'm' );
@@ -5452,7 +5457,7 @@ if ( !function_exists( 'statsocial_tag_posts' ) ) {
 
 
 
-        $html          = '<li class="%3$s">%10$s<%4$s id="post-%5$s-tagpost" %6$s style="%11$s"><div class="posted-on">
+        $html          = '<li class="%3$s">%10$s<%4$s id="post-%5$s-tagpost" %6$s style="%11$s"><div class="posted-on post--date">
 %7$s%8$s</div><h3 class="h4 entry-title"><a href="%1$s"><span>%2$s</span></a></h3><div class="entry-content clearfix">%9$s</div></%4$s></li>';
         $archive_year  = get_the_time( 'Y' );
         $archive_month = get_the_time( 'm' );
@@ -6871,7 +6876,7 @@ if ( !function_exists( 'statsocial_tile' ) ) {
 
                     echo statsocial_fallback_title( $title, $post->ID );
                     ?></a></span>
-                    <div class="posted-on">
+                    <div class="posted-on post--date">
                             <?php statsocial_posted_on(); ?>
                     </div>
                     <div class="entry-content clearfix">
@@ -6970,7 +6975,7 @@ if ( !function_exists( 'statsocial_tile' ) ) {
             $html  = ' <div class="statsocial-more-wrapper">' . $pre . '<a href="%1$s%2$s" class="poster-more-link">%3$s</a>' . $after . '</div>';
             if ( empty( $more_link_text ) ) {
 
-                $more_link_text = esc_html__( 'Continue&nbsp;reading ', 'statsocial' ) . '<span class="meta-nav">&rarr;</span><span class="more-link-post-unique">' . esc_html__( '&nbsp;Post ID&nbsp;', 'statsocial' ) . $id . '</span>';
+                $more_link_text = esc_html__( 'Continue&nbsp;reading ', 'statsocial' ) . '<span class="meta-nav">&rarr;</span>'; //. '<span class="more-link-post-unique">' . esc_html__( '&nbsp;Post ID&nbsp;', 'statsocial' ) . $id . '</span>';
             }
             $output       = '';
             $strip_teaser = false;

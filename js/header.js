@@ -1,13 +1,18 @@
 (function() {
-  var $header, $window;
+  var $header, $menuLauncher, $window;
 
   $window = $(window);
 
   $header = $('#js-header');
 
+  $menuLauncher = $('#js-menu-launcher');
+
   $window.on('scroll', function() {
-    console.log('a');
     return $header.toggleClass('is-static', $window.scrollTop() <= 1);
+  });
+
+  $menuLauncher.on('click', function() {
+    return $header.toggleClass('is-closed');
   });
 
 }).call(this);
