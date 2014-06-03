@@ -38,14 +38,29 @@ do_action( 'statsocial_pre_' . basename( __FILE__ ) );
 
 statsocial_debug_navitation( __FILE__ );
 ?>
-<div id="yui-main">
-    <div class="yui-b">
-        <div class="<?php echo statsocial_yui_class_modify(); ?>" id="container">
+
+
+
+<?php
+    statsocial_prepend_default_sidebar();
+
+    get_sidebar( 'default' );
+
+    statsocial_append_default_sidebar();
+    ?>
+
+    <h2 id="archives-title">
+        <?php printf( esc_html__( 'Author Archives: %s', 'statsocial' ), $curauth->nickname ); ?>
+    </h2>
+
+
+
             <<?php statsocial_doctype_elements( 'div', 'article' ); ?> id="post-<?php the_ID(); ?>" <?php statsocial_post_class(); ?>>		
+
+            
+
             <div class="yui-u first<?php statsocial_add_class( 'yui-u first', true ); ?>" <?php statsocial_doctype_elements( '', 'role="main"' ); ?>>
-                <h2 class="h2">
-<?php printf( esc_html__( 'Author Archives: %s', 'statsocial' ), $curauth->nickname ); ?>
-                </h2>
+                
 
                 <table <?php statsocial_doctype_elements( 'summary="author infomation"', '' ); ?> class="author-meta left auto">
                     <tr>
@@ -161,17 +176,7 @@ if ( have_posts() ) {
                 statsocial_append_extra_sidebar();
                 ?>
             </div>
-        </div>
-    </div>
-</div>
-<div class="yui-b">
-    <?php
-    statsocial_prepend_default_sidebar();
-
-    get_sidebar( 'default' );
-
-    statsocial_append_default_sidebar();
-    ?>
+    
 </div>
 </div>
 <?php get_footer( $statsocial_document_type ); ?>
