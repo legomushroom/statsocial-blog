@@ -1191,17 +1191,16 @@ if ( !function_exists( 'statsocial_comment' ) ) {
                     return;
                 }
                 $format   = get_post_format( $post->ID );
-                $tag_list = get_the_tag_list( '', ' ' );
+                $tag_list = get_the_tag_list( '', ', ' );
 
                 if ( false === $format ) {
 
                     if ( $tag_list ) {
                         $posted_in = '<div class="tagged">' . esc_html__( 'Tagged', 'statsocial' ) . '</div><div class="tagged-text">%2$s </div>';
                     } else {
-
                         $posted_in = '';
                     }
-                    $result = $format . sprintf( $posted_in, get_the_category_list( ' ' ), $tag_list );
+                    $result = $format . sprintf( $posted_in, get_the_category_list(", "), $tag_list );
                     echo apply_filters( "statsocial_tagged", $result );
                 }
             }
