@@ -148,6 +148,8 @@ body
     font-size 18px
     line-height 26px
     word-wrap pre
+    a
+      display inline-block
 
     & + p
       margin-top 2*gs
@@ -203,6 +205,26 @@ body
   &--text
     p
       display inline
+
+
+.share
+  .icon
+    position relative
+    overflow hidden
+    iframe, .fb-share-button,
+    & > div, & > span
+      position absolute
+      z-index 1
+      display block
+      width 100%
+      transform scale(2)
+      transform-origin left top
+      opacity 0
+    & > div, & > span
+      left -90%
+    & > div
+      top 18px
+
 
 
 .comment-respond
