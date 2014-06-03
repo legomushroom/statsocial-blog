@@ -92,9 +92,9 @@ function curPageURL() {
                 <use xlink:href="#linkedin-icon"></use>
               </svg>
             </div>
-            <div id="" title="" class="icon ">
+            <div id="" title="" class="icon">
               <!-- Place this tag where you want the share button to render. -->
-              <div class="g-plus" data-action="share" data-annotation="none" data-height="15"></div>
+              <div class="g-plus" data-google-plus data-action="share" data-annotation="none" data-height="15"></div>
 
               <!-- Place this tag after the last share tag. -->
               <script type="text/javascript">
