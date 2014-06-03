@@ -42,141 +42,103 @@ statsocial_debug_navitation( __FILE__ );
 
 
 <?php
-    statsocial_prepend_default_sidebar();
+  statsocial_prepend_default_sidebar();
 
-    get_sidebar( 'default' );
+  get_sidebar( 'default' );
 
-    statsocial_append_default_sidebar();
+  statsocial_append_default_sidebar();
+?>
+
+
+<div class="blog-p--core cf">
+
+
+<h2 id="archives-title">
+    <?php printf( esc_html__( 'Author: %s %s', 'statsocial' ), $curauth->first_name, $curauth->last_name ); ?>
+</h2>
+
+<div class="user-thumb">
+  <div class="user-thumb__avatar">
+    <?php
+      echo get_avatar( get_the_author_meta( 'user_email' ), apply_filters( 'statsocial_author_bio_avatar_size', 60 ), '', esc_attr__( 'Author Avatar Image', 'statsocial' ) );
     ?>
+  </div>
+  <div class="user-thumb__text">
+    <?php printf( esc_html__( '%s %s', 'statsocial' ), $curauth->first_name, $curauth->last_name ); ?>
+    <?php echo wpautop( esc_html( $curauth->description ) ); ?>
+  </div>
 
-    <h2 id="archives-title">
-        <?php printf( esc_html__( 'Author Archives: %s', 'statsocial' ), $curauth->nickname ); ?>
-    </h2>
+
+</div>
 
 
+ 
 
-            <<?php statsocial_doctype_elements( 'div', 'article' ); ?> id="post-<?php the_ID(); ?>" <?php statsocial_post_class(); ?>>		
+<!-- 
+  $image = get_the_post_thumbnail( $id );
+  printf( $html, $link, esc_attr( $title ), $image );
+ -->
 
-            
-
-            <div class="yui-u first<?php statsocial_add_class( 'yui-u first', true ); ?>" <?php statsocial_doctype_elements( '', 'role="main"' ); ?>>
-                
-
-                <table <?php statsocial_doctype_elements( 'summary="author infomation"', '' ); ?> class="author-meta left auto">
-                    <tr>
-                        <td class="avatar-col" style="width:60px;vertical-align:top;">
-                            <?php
-                            echo get_avatar( get_the_author_meta( 'user_email' ), apply_filters( 'statsocial_author_bio_avatar_size', 60 ), '', esc_attr__( 'Author Avatar Image', 'statsocial' ) );
-                            ?>
-                        </td>
-                        <td>
-                            <dl class="author statsocial" style="margin:0;padding:0;">
-                                <?php if ( esc_html( $curauth->description ) ) { ?>
-                                    <dt>
-                                        <?php esc_html_e( 'Profile', 'statsocial' ); ?>
-                                    </dt>
-                                    <dd>
-                                    <?php echo wpautop( esc_html( $curauth->description ) ); ?>
-                                    </dd>
-                                <?php }// end if ( esc_html( $curauth->description ) ) ?>
-                                <?php if ( !empty( $curauth->user_url ) ) { ?>
-                                    <dt>
-                                        <?php esc_html_e( 'Website', 'statsocial' ); ?>
-                                    </dt>
-                                    <dd>
-                                        <?php
-                                        $statsocial_html_author_url = '<span class="author vcard"><a class="url fn n" href="%1$s" title="%2$s" rel="vcard:url">%3$s</a></span>';
-
-                                        printf( $statsocial_html_author_url, esc_url( $curauth->user_url ), sprintf( 'link to author %1$s', esc_attr( $curauth->display_name ) ), esc_url( $curauth->user_url )
-                                        );
-                                        ?>
-                                    </dd>
-                                    <?php } //if ( ! empty( $curauth->user_url ) ) {?>
-                                <dt>
-                                <?php esc_html_e( 'registered', 'statsocial' ); ?>
-                                </dt>
-                                <dd>
-<?php echo esc_html( $curauth->user_registered ); ?>
-                                </dd>
-                            </dl>
-                        </td>
-                    </tr>
-                </table>
-                <br class="clear" />
-                <h2 class="h2">
-<?php esc_html_e( "Recent post", 'statsocial' ); ?>
-                </h2>
-                <dl class="author">
-                    <!-- The Loop -->
 <?php
-if ( have_posts() ) {
+  if ( have_posts() ) {
     while ( have_posts() ) {
-        the_post();
+      the_post();
+?>
+<div class="post-thumb hoverable-area">
+
+<?php
+  $statsocial_date_format = get_option( 'date_format' );
+  $statsocial_year        = get_the_time( 'Y' );
+  $statsocial_month       = get_the_time( 'm' );
+  $statsocial_day         = get_the_time( 'd' );
+  $day_link               = esc_url( get_day_link( $statsocial_year, $statsocial_month, $statsocial_day ) . '#post-' . $post->ID );
+  statsocial_entry_title( array( 'statsocial_title_element' => 'span' ) );
+?>
+  <div class="post-thumb__text">
+    <div class="post-thumb__text__meta">
+      <span class="post-thumb__meta-bit">
+      <?php
+        printf( '<a href="%1$s" title="%2$s"><%4$s class="entry-date updated" %5$s>%3$s</%4$s></a>', $day_link, esc_attr( 'archives daily ' . get_the_time( $statsocial_date_format ) ), get_the_date( $statsocial_date_format ), statsocial_doctype_elements( 'span', 'time', false ), statsocial_doctype_elements( '', 'datetime="' . esc_attr( get_the_date( 'c' ) ) . '"', false ));
+      ?>
+      </span>
+      <span class="post-thumb__meta-bit">
+       <?php
+        esc_html_e( ' Categories: ', 'statsocial' );
+        the_category( ', ' );
+       ?>
+      </span>
+      <span class="post-thumb__meta-bit">
+        <?php
+          esc_html_e( ' Tags: ', 'statsocial' );
+          echo get_the_tag_list( '', ', ' );
         ?>
-                            <dt>
-                            <?php
-                            $statsocial_date_format = get_option( 'date_format' );
-                            $statsocial_year        = get_the_time( 'Y' );
-                            $statsocial_month       = get_the_time( 'm' );
-                            $statsocial_day         = get_the_time( 'd' );
-                            $day_link              = esc_url( get_day_link( $statsocial_year, $statsocial_month, $statsocial_day ) . '#post-' . $post->ID );
+      </span>
+      <?php
+        
 
-                            printf( '<a href="%1$s" title="%2$s"><%4$s class="entry-date updated" %5$s>%3$s</%4$s></a>', $day_link, esc_attr( 'archives daily ' . get_the_time( $statsocial_date_format ) ), get_the_date( $statsocial_date_format ), statsocial_doctype_elements( 'span', 'time', false ), statsocial_doctype_elements( '', 'datetime="' . esc_attr( get_the_date( 'c' ) ) . '"', false )
-                            );
+       
+      ?>
+    </div>
 
-                            statsocial_entry_title( array( 'statsocial_title_element' => 'span' ) );
-                            ?>
-                            </dt>
-                            <dd>
-                            <?php
-                            esc_html_e( 'Categories :', 'statsocial' );
+    <?php
 
-                            the_category( ', ' );
-                            ?>
-                            </dd>
-                            <dd>
-                                <?php
-                                esc_html_e( 'Tag :', 'statsocial' );
+      the_content();
+    ?>
+  </div>
 
-                                echo get_the_tag_list( '', ', ' );
-                                ?>
-                            </dd>
-                                <?php
-                                $format = get_post_format();
+</div>
 
-                                if ( $format !== false ) {
-                                    ?>
-                                <dd>
-                                <?php
-                                esc_html_e( 'Format :', 'statsocial' );
-
-                                echo ' <a href="' . esc_url( get_post_format_link( $format ) ) . '">' . esc_html( get_post_format_string( $format ) ) . '</a>';
-                                ?>
-                                </dd>
-                                <?php
-                            } //end if ( $format !== false ) 
-                        } //end while			
-                    } else {
-                        ?>
-                        <p><?php esc_html_e( 'No posts by this author.', 'statsocial' ); ?></p>
+<?php
+    } //end while			
+  } else {
+?>
+<p><?php esc_html_e( 'No posts by this author.', 'statsocial' ); ?></p>
                         <?php } //if ( have_posts( ) ) 
                     ?>
-                </dl>
+
                 <?php statsocial_next_prev_links( "nav-below" ); ?>
             </div>
             </<?php statsocial_doctype_elements( 'div', 'article' ); ?>>
-            <div class="yui-u">
-                <?php
-                statsocial_prepend_extra_sidebar();
-
-                if ( $rsidebar_show ) {
-                    get_sidebar( 'extra' );
-                }
-
-                statsocial_append_extra_sidebar();
-                ?>
-            </div>
-    
-</div>
+  </div>
 </div>
 <?php get_footer( $statsocial_document_type ); ?>

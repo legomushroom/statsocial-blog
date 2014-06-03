@@ -11,8 +11,13 @@
     return $header.toggleClass('is-static', $window.scrollTop() <= 1);
   });
 
-  $menuLauncher.on('click', function() {
-    return $header.toggleClass('is-closed');
+  $menuLauncher.on('click', function(e) {
+    $header.toggleClass('is-closed');
+    return e.stopPropagation();
+  });
+
+  $(document).on('click', function() {
+    return $header.addClass('is-closed');
   });
 
 }).call(this);

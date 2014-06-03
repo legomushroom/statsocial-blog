@@ -24,7 +24,8 @@ do_action( 'statsocial_pre_' . basename( __FILE__ ) );
     get_sidebar( 'default' );
 
     statsocial_append_default_sidebar();
-    ?>  
+    ?>
+  <div class="blog-p--core">
 
 <?php statsocial_debug_navitation( __FILE__ ); ?>
 <?php statsocial_prepend_loop(); ?>

@@ -9,6 +9,8 @@ if ( !defined( 'ABSPATH' ) ) {
     exit;
 }
 ?>
+
+<div class="blog-p--core">
 <?php
 /**
  * Display navigation to next/previous pages when applicable
@@ -55,7 +57,6 @@ if ( have_posts() ) {
              *
              */
         } elseif ( in_category( "blog" ) || has_post_format( "status" ) ) {
-
             get_template_part( 'part', 'blog' );
         } elseif ( $format !== false ) {
 

@@ -54,20 +54,19 @@ statsocial_debug_navitation( __FILE__ );
          */
         if ( '1' !== statsocial_show_one_column() || false == $statsocial_current_column ) {
             ?>
-<?php
+
+    <?php
+}
+?>
+
+    <?php
 statsocial_prepend_default_sidebar();
 
 get_sidebar( 'default' );
 
 statsocial_append_default_sidebar();
 ?>
-<!-- </div> -->
-    <?php
-}
-?>
-
-<div class="blog-p--main">
-          <div class="blog-p--main--core">
+          <div class="blog-p--core">
 
                 <?php
                 /**
@@ -178,9 +177,16 @@ statsocial_append_default_sidebar();
                 }
                 //add nest grid here
                 ?>
-
-
-        </div>
-    </div>
 </div>
-    <?php get_footer( $statsocial_document_type ); ?>
+
+
+<?php get_footer( $statsocial_document_type ); ?>
+
+
+
+
+
+
+
+
+

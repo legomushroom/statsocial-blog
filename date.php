@@ -103,14 +103,24 @@ get_header( $statsocial_document_type );
 do_action( 'statsocial_pre_' . basename( __FILE__ ) );
 statsocial_debug_navitation( __FILE__ );
 ?>
-<div id="yui-main">
-    <div class="yui-b">
+
+<?php
+    statsocial_prepend_default_sidebar();
+
+    get_sidebar( 'default' );
+
+    statsocial_append_default_sidebar();
+    ?>
+
+<div class="blog-p--core cf">
+
+
         <div class="<?php echo statsocial_yui_class_modify(); ?>" id="container">
             <!-- content -->
             <div class="yui-u first<?php statsocial_add_class( 'yui-u first', true ); ?>" <?php statsocial_doctype_elements( '', 'role="main"' ); ?>>
-<?php statsocial_prepend_loop(); ?>
+    <?php statsocial_prepend_loop(); ?>
 
-                <h2 class="page-title">
+                <h2 class="page-title" id="archives-title">
                     <?php
                     if ( is_year() ) {
                         $one_year = query_posts( "posts_per_page=-1&year=$ye" );
@@ -130,7 +140,6 @@ statsocial_debug_navitation( __FILE__ );
                     }
                     ?>
                 </h2>
-                <?php statsocial_monthly_archive_prev_next_navigation(); ?>
                 <div class="datetable">
                     <?php echo $output; ?>
                 </div>
@@ -142,28 +151,12 @@ statsocial_debug_navitation( __FILE__ );
                 <?php statsocial_append_loop(); ?>
 
             </div>
-            <div class="yui-u">
-                <?php
-                statsocial_prepend_extra_sidebar();
+            <br>
+            <br>
+            <?php statsocial_monthly_archive_prev_next_navigation(); ?>
 
-                if ( $rsidebar_show ) {
-                    get_sidebar( 'extra' );
-                }
-
-                statsocial_append_extra_sidebar();
-                ?>
-            </div>
-        </div>
-    </div>
 </div>
-<div class="yui-b">
-    <?php
-    statsocial_prepend_default_sidebar();
-
-    get_sidebar( 'default' );
-
-    statsocial_append_default_sidebar();
-    ?>	
 </div>
+
 </div>
 <?php get_footer( $statsocial_document_type ); ?>

@@ -20,12 +20,13 @@ if ( false === $format ) {
 
     $statsocial_entry_meta_class = 'entry-meta-' . $format;
 }
-
         statsocial_entry_title();
 ?>
         <div class="<?php echo $statsocial_entry_meta_class; ?>" style="font-weight: normal;" >
+            </a>
+            Posted on 
             <?php
-            statsocial_posted_on();
+            statsocial_posted_on(true);
             ?>
         </div>
 
@@ -73,20 +74,10 @@ if ( false === $format ) {
             <div class="post--footer--section--content"><?php echo statsocial_tagged(); ?></div>
           </div>
           <div class="post--footer--section"> 
-            <div class="post--footer--section--content"><a class="is-hoverable" href="#">Leave a reply</a></div>
+            <!-- <div class="post--footer--section--content"><a class="is-hoverable" href="#">Leave a reply</a></div> -->
           </div>
         </div>
 
-       <!--  <div class="entry-utility entry-meta">
-            <?php
-            echo statsocial_posted_in();
-
-            edit_post_link( esc_html__( 'Edit', 'statsocial' ) . statsocial_link_unique( 'Post', $post->ID ), '<span class="edit-link">', '</span>' );
-
-            statsocial_delete_post_link( esc_html__( 'Trash', 'statsocial' ) . statsocial_link_unique( 'Post', $post->ID ), '<span class="edit-link">', '</span>' );
-            ?>
-        </div> -->
-        </div>
 <?php
 if ( is_single() ) {
 

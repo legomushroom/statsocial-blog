@@ -17,8 +17,7 @@ do_action( 'statsocial_pre_part_' . basename( __FILE__, '.php' ) . '_' . basenam
   </head>
   <body <?php body_class(); ?>>
     <?php include 'icons.svg'; ?>
-    <div class="blog-p">
-      <div class="blog-p--core cf">
+    <div class="blog-p cf">
 
         <div id="js-header" class="main-header is-static is-closed">
           <a href="http://statsocial.com/" class="sidebar-logo-e is-blue-bg is-hoverable">

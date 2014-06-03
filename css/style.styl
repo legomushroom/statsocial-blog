@@ -7,8 +7,89 @@
 @import 'css-assets/effects'
 @import 'css-assets/icons'
 
+c-lightBlue = #61dcff
+
 body
   background white
+
+.tagged
+  float left
+  margin-right gs
+.tagged-text
+  margin-left 7*gs
+  line-height 20px
+
+.post
+  .h2-thumb
+    img
+      display none
+
+.single-post-thumbnail
+  display none
+
+.calendar-period
+  margin-bottom 2*gs
+
+.calendar-table
+  width 100%
+  padding-right 8*gs
+  .post
+    padding-bottom 0
+  table
+    width 100%
+  tr
+    width 100%
+    padding 2*gs
+    &:nth-of-type(odd)
+      background #F5FBFD
+
+  td
+    padding gs
+
+.user-thumb
+  overflow hidden
+  margin-bottom 4*gs
+  &__avatar
+    float left
+
+  &__text
+    margin-left 8*gs
+    padding-right 6*gs
+    line-height 20px
+
+.post-thumb
+  overflow hidden
+  & + .post-thumb
+    margin-top 4*gs
+  .h2-thumb
+    float left
+    img 
+      rect 14*gs
+      display block
+  img
+    display none
+  &__text
+    margin-left 16*gs
+    margin-top - 1.5*gs
+    margin-right 6*gs
+    line-height 24px
+    &__meta
+      font-size 12px
+      a
+        color c-lightBlue
+  &__meta-bit
+    padding 0 gs
+    & + .post-thumb__meta-bit
+      border-left 2px solid #f1f1f1
+    &:first-of-type
+      padding-left 0
+  .post--header
+    font-size 20px
+    margin-bottom gs
+    display block
+.blog-p--core
+  margin-left 40*gs II
+    
 
 #archives-title
   margin-bottom 4*gs
@@ -16,7 +97,7 @@ body
   font-size 24px
   border-bottom 2px solid #f1f1f1
   padding-bottom 1.5*gs
-  margin-left 400px
+  // margin-left 400px
   max-width 720px
 
 /* 3d1b1302ecf8441b0d6403758eaf80ee */
@@ -59,6 +140,9 @@ body
     &:hover
       cursor pointer
       text-decoration underline
+  &--header
+    a
+      color #425970
   p 
     text-align left
     font-size 18px
@@ -85,7 +169,14 @@ body
       float left
       & + &
         .post--footer--section--content
-          border-left 1px solid #44596e
+          position relative
+          &:before
+            content ''
+            position absolute
+            left 1px
+            height 2*gs
+            border-left 1px solid #44596e
+          // border-left 1px solid #44596e
       &--content
         text-align left
         padding-left gs
@@ -95,6 +186,9 @@ body
 
   .post--footer--section
     padding-right gs
+    width (100/3)%
+    text-align center
+    text-align left
 
 // MOVE
 .post
@@ -122,18 +216,24 @@ body
   li + li
     margin-top: (gs/2)
 
-
-
-
 .nav-previous, .nav-next
+  display block
+  float left
   &:hover
     cursor pointer
     text-decoration underline
-
+.nav-next
+  float right
 #nav-below
-  margin-left 7*gs
+  // margin-left 7*gs
   margin-top 4*gs
-  display inline-block
+  display block
+  padding 0
+  margin-bottom 8*gs
+  float left
+  width 100%
+  text-align left
+  // display inline-block
   &:hover
     cursor pointer
 
@@ -155,7 +255,5 @@ body
 .search-input
   max-width 76*gs
 
-ul.search-results
-  margin-left 40*gs
 
 

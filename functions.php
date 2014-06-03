@@ -1196,7 +1196,7 @@ if ( !function_exists( 'statsocial_comment' ) ) {
                 if ( false === $format ) {
 
                     if ( $tag_list ) {
-                        $posted_in = '<span class="tagged">' . esc_html__( 'Tagged', 'statsocial' ) . '</span> %2$s';
+                        $posted_in = '<div class="tagged">' . esc_html__( 'Tagged', 'statsocial' ) . '</div><div class="tagged-text">%2$s </div>';
                     } else {
 
                         $posted_in = '';
@@ -1280,7 +1280,6 @@ if ( !function_exists( 'statsocial_comment' ) ) {
 
                     echo apply_filters( "statsocial_posted_on", $result );
                 } elseif ( empty( $content_empty_check ) ) {
-
                     echo statsocial_comments_link();
                 } else {
 
@@ -2438,13 +2437,13 @@ LINK_COLOR_CSS;
                     $months[$m][] = $post;
                 }
 
-                $output     = "<h2 class=\"h2 year\"><span class=\"year-name\">$year</span></h2>";
-                $table_year = array( '<table id="statsocial_year_list"' . statsocial_doctype_elements( 'summary ="Archives in ' . $year . '"', '', false ) . '><tbody>', '<tr><td class="month-name">1</td><td></td></tr>', '<tr><td class="month-name">2</td><td></td></tr>', '<tr><td class="month-name">3</td><td></td></tr>', '<tr><td class="month-name">4</td><td></td></tr>', '<tr><td class="month-name">5</td><td></td></tr>', '<tr><td class="month-name">6</td><td></td></tr>', '<tr><td class="month-name">7</td><td></td></tr>', '<tr><td class="month-name">8</td><td></td></tr>', '<tr><td class="month-name">9</td><td></td></tr>', '<tr><td class="month-name">10</td><td></td></tr>', '<tr><td class="month-name">11</td><td></td></tr>', '<tr><td class="month-name">12</td><td></td></tr>', '</tbody></table>' );
+                $output     = "<h2 class=\"h2 year calendar-period\"><span class=\"year-name\">$year</span></h2>";
+                $table_year = array( '<div class="calendar-table"><table id="statsocial_year_list"' . statsocial_doctype_elements( 'summary ="Archives in ' . $year . '"', '', false ) . '><tbody>', '<tr><td class="month-name">1</td><td></td></tr>', '<tr><td class="month-name">2</td><td></td></tr>', '<tr><td class="month-name">3</td><td></td></tr>', '<tr><td class="month-name">4</td><td></td></tr>', '<tr><td class="month-name">5</td><td></td></tr>', '<tr><td class="month-name">6</td><td></td></tr>', '<tr><td class="month-name">7</td><td></td></tr>', '<tr><td class="month-name">8</td><td></td></tr>', '<tr><td class="month-name">9</td><td></td></tr>', '<tr><td class="month-name">10</td><td></td></tr>', '<tr><td class="month-name">11</td><td></td></tr>', '<tr><td class="month-name">12</td><td></td></tr>', '</tbody></table></div>' );
 
                 foreach ( $months as $num => $val ) {
 
                     $num              = ( int ) $num;
-                    $table_year[$num] = '<tr><td class="month-name"><a href="' . get_month_link( $year, $num ) . "\" title=\"$year/$num\">" . $num . '</a></td><td class="month-excerpt"><a href="' . get_month_link( $year, $num ) . "\" title=\"$year/$num\">" . sprintf( esc_html__( "%s Articles archived", "statsocial" ), count( $val ) ) . '</a></td></tr>';
+                    $table_year[$num] = '<tr><td class="month-name"><a class="is-hoverable" href="' . get_month_link( $year, $num ) . "\" title=\"$year/$num\">" . $num . '</a></td><td class="month-excerpt"><a class="is-hoverable" href="' . get_month_link( $year, $num ) . "\" title=\"$year/$num\">" . sprintf( esc_html__( "%s Articles archived", "statsocial" ), count( $val ) ) . '</a></td></tr>';
                 }
                 return $output . implode( "\n", $table_year );
             }
@@ -2464,8 +2463,8 @@ LINK_COLOR_CSS;
 
                 global $month;
                 $here   = home_url();
-                $output = "<h2 class=\"h2 year-month-date\"><a href=\"" . get_year_link( $year ) . "\" title=\"$year\"><span class=\"year-name\">$year</span></a> <a href=\"" . get_month_link( $year, $mon ) . "\" title=\"$year/$mon\"><span class=\"month-name\">" . $mon . "</span></a>&nbsp;<span class=\"day-name\">" . $day . "</span></h2>";
-                $output .= '<table id="date_list" ' . statsocial_doctype_elements( 'summary="Archive in ' . $day . ', ' . $mon . ', ' . $year . '"', '', false ) . '>';
+                $output = "<h2 class=\"h2 year-month-date calendar-period\"><a class=\"is-hoverable\" href=\"" . get_year_link( $year ) . "\" title=\"$year\"><span class=\"year-name\">$year</span></a> <a class=\"is-hoverable\" href=\"" . get_month_link( $year, $mon ) . "\" title=\"$year/$mon\"><span class=\"month-name\">" . $mon . "</span></a>&nbsp;<span class=\"day-name\">" . $day . "</span></h2>";
+                $output .= '<div class="calendar-table"><table id="date_list" ' . statsocial_doctype_elements( 'summary="Archive in ' . $day . ', ' . $mon . ', ' . $year . '"', '', false ) . '>';
 
                 foreach ( $posts as $mytime ) {
 
@@ -2498,7 +2497,7 @@ LINK_COLOR_CSS;
                             $mytime->post_title = preg_replace( '|>.+</|', '>[Article ' . $mytime->ID . ']</', $mytime->post_title );
 
 
-                            $output .= "<a href=\"" . get_permalink( $mytime->ID ) . "\"
+                            $output .= "<a class=\"is-hoverable\" href=\"" . get_permalink( $mytime->ID ) . "\"
 id=\"post-" . $mytime->ID . "\">$mytime->post_title</a><br />";
                         }
                     } else {
@@ -2507,7 +2506,7 @@ id=\"post-" . $mytime->ID . "\">$mytime->post_title</a><br />";
                     }
                     $output .= '</td></tr>';
                 }
-                $output .= '</table>';
+                $output .= '</table></div>';
                 return $output;
             }
 
@@ -2537,7 +2536,7 @@ id=\"post-" . $mytime->ID . "\">$mytime->post_title</a><br />";
 
                     if ( $m == $mo && $ye == $y ) {
 
-                        $links .= "<li class=\"$mo\"><a href=\"" . get_permalink( $month->ID ) . "\" title=\"" . esc_attr( strip_tags( $month->post_title ) ) . "\">" . $month->post_title . "</a></li>";
+                        $links .= "<li class=\"$mo\"><a class=\"is-hoverable\" href=\"" . get_permalink( $month->ID ) . "\" title=\"" . esc_attr( strip_tags( $month->post_title ) ) . "\">" . $month->post_title . "</a></li>";
                     }
                 }
 
@@ -2604,9 +2603,9 @@ id=\"post-" . $mytime->ID . "\">$mytime->post_title</a><br />";
                                 $month->post_title = preg_replace( '|>.+</|', '>[link to ' . $month->ID . ']</', $month->post_title );
 
                                 $html = '<li id="post-%5$s" %6$s>
-                        <span class="%1$s"><a href="%2$s" rel="bookmark" title="%3$s">%4$s</a></span>
+                        <span class="%1$s"><a class="is-hoverable" href="%2$s" rel="bookmark" title="%3$s">%4$s</a></span>
                         <%7$s class="entry-date updated" %8$s>%9$s</%7$s>
-                        <span class="author vcard"><a class="url fn n" href="%10$s" title="%11$s" rel="vcard:url">%12$s</a></span> 					</li>';
+                        <span class="author vcard"><a class="is-hoverable url fn n" href="%10$s" title="%11$s" rel="vcard:url">%12$s</a></span> 					</li>';
 
                                 $display_name = get_the_author_meta( 'display_name', $month->post_author );
                                 $links .= sprintf( $html, 'h2 entry-title', esc_url( get_permalink( $month->ID ) ), 'link to content: ' . esc_attr( strip_tags( $month->post_title ) ), $month->post_title, $month->ID, ' ' . statsocial_post_class( array( 'clearfix' ), $month->ID, false ), statsocial_doctype_elements( 'span', 'time', false ), statsocial_doctype_elements( '', 'datetime="' . esc_attr( get_the_date( 'c' ) ) . '"', false ), $month->post_date, get_author_posts_url( get_the_author_meta( 'ID' ) ), sprintf( esc_attr__( 'View all posts by %s', 'statsocial' ), $display_name ), $display_name
@@ -2626,7 +2625,7 @@ id=\"post-" . $mytime->ID . "\">$mytime->post_title</a><br />";
                     if ( !empty( $links ) ) {
 
                         $result .= "<tr><td class=\"month-date\"><span class=\"day-name\">";
-                        $result .= "<a href=\"" . get_day_link( $y, $mo, $i ) . "\">";
+                        $result .= "<a class=\"is-hoverable\" href=\"" . get_day_link( $y, $mo, $i ) . "\">";
                         $result .= $i;
                         $result .= " </a></span></td><td><ul>";
                         $result .= $links;
@@ -2639,8 +2638,8 @@ id=\"post-" . $mytime->ID . "\">$mytime->post_title</a><br />";
                     }
                     $z = $c;
                 }
-                $output = "<h2 id=\"date_title\" class=\"h2 year-month\"><a href=\"" . esc_url( get_year_link( $y ) ) . "\" title=\"" . esc_attr( $y ) . "\"><span class=\"year-name\">" . esc_html( $y ) . "</span></a> <span class=\"month-name\">" . esc_html( $m ) . " </span></h2>";
-                return $output . '<table id="month_list" ' . statsocial_doctype_elements( 'summary="Archive in ' . esc_attr( $m ) . ', ' . esc_attr( $y ) . '"', '', false ) . '>' . $result . "</table>";
+                $output = "<h2 id=\"date_title\" class=\"h2 year-month calendar-period\"><a class=\"is-hoverable\" href=\"" . esc_url( get_year_link( $y ) ) . "\" title=\"" . esc_attr( $y ) . "\"><span class=\"year-name\">" . esc_html( $y ) . "</span></a> <span class=\"month-name\">" . esc_html( $m ) . " </span></h2>";
+                return $output . '<div class="calendar-table"><table id="month_list" ' . statsocial_doctype_elements( 'summary="Archive in ' . esc_attr( $m ) . ', ' . esc_attr( $y ) . '"', '', false ) . '>' . $result . "</table></div>";
             }
 
         }
@@ -4997,7 +4996,7 @@ if ( !function_exists( 'statsocial_entry_title' ) ) {
 
         if ( !is_singular() or is_page_template( 'page-templates/list-of-post.php' ) ) {
 
-            $html = '<' . $statsocial_title_element . ' class="%1$s">%5$s<a href="%2$s" rel="bookmark" title="%3$s"><span>%4$s</span></a></' . $statsocial_title_element . '>';
+            $html = '%5$s<div class="post-thumb__text"><' . $statsocial_title_element . ' class="%1$s"><a href="%2$s" rel="bookmark" title="%3$s"><span>%4$s</span></a></' . $statsocial_title_element . '></div>';
 
             $html = sprintf( $html, 'post--header', get_permalink(), the_title_attribute( array( 'before' => '', 'after' => '', 'echo' => false ) ), the_title( '', '', false ), $thumbnail );
 
@@ -5612,17 +5611,17 @@ if ( !function_exists( 'statsocial_monthly_archive_prev_next_navigation' ) ) {
 			ORDER BY post_date ASC
 			LIMIT 1" );
 
-            $html = '<a href="%1$s" class="%3$s">%2$s</a>';
+            $html = '<a href="%1$s" class="%3$s is-hoverable">%2$s</a>';
 
             if ( $previous ) {
 
-                $calendar_output = sprintf( $html, get_month_link( $previous->year, $previous->month ), sprintf( esc_html__( 'Prev Month(  %sth  )', 'statsocial' ), $previous->month ), 'alignleft' );
+                $calendar_output = sprintf( $html, get_month_link( $previous->year, $previous->month ), sprintf( esc_html__( '<< Prev Month(  %sth  )', 'statsocial' ), $previous->month ), 'alignleft' );
             }
             $calendar_output .= "\t";
 
             if ( $next ) {
 
-                $calendar_output .= sprintf( $html, get_month_link( $next->year, $next->month ), sprintf( esc_html__( 'Next Month(  %sth  )', 'statsocial' ), $next->month ), 'alignright' );
+                $calendar_output .= sprintf( $html, get_month_link( $next->year, $next->month ), sprintf( esc_html__( 'Next Month(  %sth  ) >>', 'statsocial' ), $next->month ), 'alignright' );
             }
             $html            = '<div class="%1$s">%2$s</div>';
             $calendar_output = sprintf( $html, 'statsocial-monthly-archive-prev-next-avigation', $calendar_output );
