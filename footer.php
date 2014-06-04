@@ -23,6 +23,7 @@ if ( !defined( 'ABSPATH' ) ) {
 global $statsocial_current_theme_name, $statsocial_current_data_theme_uri, $template, $statsocial_accessibility_link;
 do_action( 'statsocial_pre_part_' . basename( __FILE__, '.php' ) . '_' . basename( $template ) );
 ?>
+</div>
 <div class="footer-l">
         <div class="social-share-b">
           <a href="https://twitter.com/statsocial" class="icon is-white is-hoverable" title="" id="">

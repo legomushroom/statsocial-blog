@@ -42,8 +42,6 @@ do_action( 'statsocial_pre_' . basename( __FILE__ ) );
 statsocial_debug_navitation( __FILE__ );
 ?>
 
-
-
  <?php
         /**
          * Show main column lsidebar start
